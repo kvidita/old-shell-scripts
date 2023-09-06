@@ -1,0 +1,53 @@
+#! /bin/bash
+
+#function generate_random_no(){
+#	echo $(jot -r 1 1 10)
+#	return 0 
+#}
+
+#function guess_number(){
+#	echo "Enter a number"
+#read NUM
+#echo $NUM
+#return 0
+#}
+
+#function compare_two_numbers(){
+#NUM1=$1
+#NUM2=$2
+#if [ $NUM1 -eq $NUM2 ];then
+#	echo "numbers are equal"
+#} 
+
+#ARBITRARY_NO=$(generate_random_no)
+#echo $ARBITRARY_NO
+
+#PLAYER_GUESS=$(guess_number) 
+#echo $PLAYER_GUESS
+#guess_number
+
+
+ARBITRARY_NO=$(jot -r 1 1 30)
+
+function guess_no()
+{
+CHANCES=3
+CHANCES=$(dc -e "$CHANCES _1 + p")
+	echo "guess a number"
+	read NUM1
+	PLAYER_NUM=$1
+	if [ $NUM1 -eq $PLAYER_NUM ]; then
+		echo "you won!!"
+	else
+		return 0
+	fi
+} 
+
+guess_no $ARBITRARY_NO
+if [ $? -eq 0 ];then
+#	CHANCES=$(dc -e "$CHANCES _1 + p")
+	guess_no $ARBITRARY_NO
+fi
+
+if [ $CHANCES -eq 0 ]; then
+	echo "you lost!!"
